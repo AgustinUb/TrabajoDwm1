@@ -1,0 +1,118 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Paciente Prueba",
+      "rut": "11.111.111-1",
+      "email": "paciente@test.com",
+      "password": "paciente123",
+      "role": "patient"
+    },
+    {
+      "id": "2",
+      "name": "Admin Prueba",
+      "rut": "22.222.222-2",
+      "email": "admin@test.com",
+      "password": "admin123",
+      "role": "admin"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1",
+      "patientName": "Ana Torres",
+      "patientRut": "12.345.678-9",
+      "specialty": "Pediatría",
+      "doctor": "Dra. López",
+      "date": "2025-09-05",
+      "time": "10:00",
+      "status": "confirmed"
+    },
+    {
+      "id": "2",
+      "patientName": "Carlos Mendoza",
+      "patientRut": "13.456.789-0",
+      "specialty": "Dermatología",
+      "doctor": "Dr. Soto",
+      "date": "2025-09-06",
+      "time": "14:30",
+      "status": "confirmed"
+    },
+    {
+      "id": "3",
+      "patientName": "María González",
+      "patientRut": "14.567.890-1",
+      "specialty": "Odontología",
+      "doctor": "Dra. Vargas",
+      "date": "2025-09-07",
+      "time": "09:00",
+      "status": "confirmed"
+    },
+    {
+      "id": "4",
+      "patientName": "José Ramírez",
+      "patientRut": "15.678.901-2",
+      "specialty": "Medicina General",
+      "doctor": "Dr. Rivas",
+      "date": "2025-09-08",
+      "time": "16:00",
+      "status": "cancelled"
+    },
+    {
+      "id": "5",
+      "patientName": "Elena Vásquez",
+      "patientRut": "16.789.012-3",
+      "specialty": "Pediatría",
+      "doctor": "Dra. López",
+      "date": "2025-09-09",
+      "time": "11:30",
+      "status": "confirmed"
+    }
+  ],
+  "specialties": [
+    "Medicina General",
+    "Pediatría",
+    "Dermatología",
+    "Odontología"
+  ],
+  "doctors": [
+    {
+      "id": "1",
+      "name": "Dra. López",
+      "specialty": "Pediatría"
+    },
+    {
+      "id": "2",
+      "name": "Dr. Soto",
+      "specialty": "Dermatología"
+    },
+    {
+      "id": "3",
+      "name": "Dra. Vargas",
+      "specialty": "Odontología"
+    },
+    {
+      "id": "4",
+      "name": "Dr. Rivas",
+      "specialty": "Medicina General"
+    }
+  ],
+  "timeSlots": [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30"
+  ]
+}

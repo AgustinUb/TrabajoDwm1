@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Citas Médicas - Consultorio de Barrio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <i class="fas fa-stethoscope loading-icon"></i>
+                <p>Cargando...</p>
+            </div>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen">
+            <div class="login-container">
+                <div class="login-content">
+                    <!-- Header -->
+                    <div class="login-header">
+                        <div class="icon-container">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h1>Sistema de Citas Médicas</h1>
+                        <p>Consultorio de Barrio</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Iniciar Sesión</h2>
+                        </div>
+                        <div class="card-content">
+                            <form id="login-form">
+                                <div class="form-group">
+                                    <label for="login-rut">RUT</label>
+                                    <input type="text" id="login-rut" placeholder="12.345.678-9" maxlength="12">
+                                    <span class="error-message" id="login-rut-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login-password">Contraseña</label>
+                                    <div class="password-input">
+                                        <input type="password" id="login-password" placeholder="Ingresa tu contraseña">
+                                        <button type="button" id="toggle-login-password" class="password-toggle">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="error-message" id="login-password-error"></span>
+                                </div>
+
+                                <div id="login-error" class="alert alert-error" style="display: none;"></div>
+
+                                <button type="submit" class="btn btn-primary btn-full">Iniciar Sesión</button>
+                            </form>
+
+                            <div class="text-center">
+                                <button id="go-to-register" class="btn-link">¿No tienes cuenta? Crear cuenta</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Credentials -->
+                    <div class="card credentials-card">
+                        <div class="card-header">
+                            <h2>Credenciales de Prueba</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="credential-item">
+                                <p class="credential-role patient">Paciente</p>
+                                <p class="credential-info">RUT: 11.111.111-1</p>
+                                <p class="credential-info">Contraseña: paciente123</p>
+                            </div>
+                            <div class="credential-item">
+                                <p class="credential-role admin">Administrador</p>
+                                <p class="credential-info">RUT: 22.222.222-2</p>
+                                <p class="credential-info">Contraseña: admin123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Screen -->
+        <div id="register-screen" class="screen" style="display: none;">
+            <div class="register-container">
+                <div class="register-content">
+                    <div class="register-header">
+                        <button id="back-to-login" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <h1>Crear Cuenta</h1>
+                        <p>Registro de nuevo paciente</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <form id="register-form">
+                                <div class="form-group">
+                                    <label for="register-name">Nombre completo</label>
+                                    <input type="text" id="register-name" placeholder="Ingresa tu nombre completo">
+                                    <span class="error-message" id="register-name-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="register-rut">RUT</label>
+                                    <input type="text" id="register-rut" placeholder="12.345.678-9" maxlength="12">
+                                    <span class="error-message" id="register-rut-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="register-email">Email</label>
+                                    <input type="email" id="register-email" placeholder="tu@email.com">
+                                    <span class="error-message" id="register-email-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="register-password">Contraseña</label>
+                                    <div class="password-input">
+                                        <input type="password" id="register-password" placeholder="Crea una contraseña">
+                                        <button type="button" id="toggle-register-password" class="password-toggle">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="error-message" id="register-password-error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="register-confirm-password">Confirmar contraseña</label>
+                                    <div class="password-input">
+                                        <input type="password" id="register-confirm-password" placeholder="Confirma tu contraseña">
+                                        <button type="button" id="toggle-confirm-password" class="password-toggle">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <span class="error-message" id="register-confirm-password-error"></span>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-full">Crear Cuenta</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Created Screen -->
+        <div id="account-created-screen" class="screen" style="display: none;">
+            <div class="account-created-container">
+                <div class="account-created-content">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h1>¡Cuenta creada exitosamente!</h1>
+                    <p>Tu cuenta ha sido registrada correctamente. Ahora puedes iniciar sesión con tus credenciales.</p>
+                    <button id="go-to-login-from-created" class="btn btn-primary">Iniciar Sesión</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments Screen -->
+        <div id="appointments-screen" class="screen" style="display: none;">
+            <div class="appointments-container">
+                <!-- Header -->
+                <header class="app-header">
+                    <div class="header-content">
+                        <div class="header-left">
+                            <i class="fas fa-stethoscope"></i>
+                            <span class="app-title">Citas Médicas</span>
+                        </div>
+                        <div class="header-right">
+                            <span id="user-name" class="user-name"></span>
+                            <span id="user-role" class="user-role"></span>
+                            <button id="logout-btn" class="btn btn-outline">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Cerrar Sesión
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Main Content -->
+                <main class="main-content">
+                    <div class="content-header">
+                        <h1>Gestión de Citas</h1>
+                        <button id="new-appointment-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Nueva Cita
+                        </button>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="filters-section">
+                        <div class="filters-row">
+                            <div class="filter-group">
+                                <label for="filter-specialty">Especialidad</label>
+                                <select id="filter-specialty">
+                                    <option value="">Todas las especialidades</option>
+                                    <option value="Medicina General">Medicina General</option>
+                                    <option value="Pediatría">Pediatría</option>
+                                    <option value="Dermatología">Dermatología</option>
+                                    <option value="Odontología">Odontología</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="filter-doctor">Médico</label>
+                                <select id="filter-doctor">
+                                    <option value="">Todos los médicos</option>
+                                    <option value="Dra. López">Dra. López</option>
+                                    <option value="Dr. Soto">Dr. Soto</option>
+                                    <option value="Dra. Vargas">Dra. Vargas</option>
+                                    <option value="Dr. Rivas">Dr. Rivas</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="filter-status">Estado</label>
+                                <select id="filter-status">
+                                    <option value="">Todos los estados</option>
+                                    <option value="confirmed">Confirmada</option>
+                                    <option value="cancelled">Cancelada</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <button id="clear-filters" class="btn btn-outline">Limpiar Filtros</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appointments List -->
+                    <div class="appointments-list">
+                        <div id="appointments-container"></div>
+                        <div id="no-appointments" class="no-appointments" style="display: none;">
+                            <i class="fas fa-calendar-times"></i>
+                            <h3>No hay citas para mostrar</h3>
+                            <p>No se encontraron citas que coincidan con los filtros seleccionados.</p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Book Appointment Screen -->
+        <div id="book-appointment-screen" class="screen" style="display: none;">
+            <div class="book-appointment-container">
+                <header class="app-header">
+                    <div class="header-content">
+                        <div class="header-left">
+                            <button id="back-to-appointments" class="btn-back">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <span class="page-title">Nueva Cita</span>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="main-content">
+                    <div class="form-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Reservar Nueva Cita</h2>
+                            </div>
+                            <div class="card-content">
+                                <form id="book-appointment-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="book-patient-name">Nombre del paciente</label>
+                                            <input type="text" id="book-patient-name" placeholder="Nombre completo">
+                                            <span class="error-message" id="book-patient-name-error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="book-patient-rut">RUT del paciente</label>
+                                            <input type="text" id="book-patient-rut" placeholder="12.345.678-9" maxlength="12">
+                                            <span class="error-message" id="book-patient-rut-error"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="book-specialty">Especialidad</label>
+                                            <select id="book-specialty">
+                                                <option value="">Selecciona una especialidad</option>
+                                                <option value="Medicina General">Medicina General</option>
+                                                <option value="Pediatría">Pediatría</option>
+                                                <option value="Dermatología">Dermatología</option>
+                                                <option value="Odontología">Odontología</option>
+                                            </select>
+                                            <span class="error-message" id="book-specialty-error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="book-doctor">Médico</label>
+                                            <select id="book-doctor">
+                                                <option value="">Selecciona un médico</option>
+                                            </select>
+                                            <span class="error-message" id="book-doctor-error"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="book-date">Fecha</label>
+                                            <input type="date" id="book-date">
+                                            <span class="error-message" id="book-date-error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="book-time">Hora</label>
+                                            <select id="book-time">
+                                                <option value="">Selecciona una hora</option>
+                                                <option value="08:00">08:00</option>
+                                                <option value="08:30">08:30</option>
+                                                <option value="09:00">09:00</option>
+                                                <option value="09:30">09:30</option>
+                                                <option value="10:00">10:00</option>
+                                                <option value="10:30">10:30</option>
+                                                <option value="11:00">11:00</option>
+                                                <option value="11:30">11:30</option>
+                                                <option value="14:00">14:00</option>
+                                                <option value="14:30">14:30</option>
+                                                <option value="15:00">15:00</option>
+                                                <option value="15:30">15:30</option>
+                                                <option value="16:00">16:00</option>
+                                                <option value="16:30">16:30</option>
+                                                <option value="17:00">17:00</option>
+                                                <option value="17:30">17:30</option>
+                                            </select>
+                                            <span class="error-message" id="book-time-error"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="button" id="cancel-book" class="btn btn-outline">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Reservar Cita</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Edit Appointment Screen -->
+        <div id="edit-appointment-screen" class="screen" style="display: none;">
+            <div class="edit-appointment-container">
+                <header class="app-header">
+                    <div class="header-content">
+                        <div class="header-left">
+                            <button id="back-to-appointments-from-edit" class="btn-back">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <span class="page-title">Editar Cita</span>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="main-content">
+                    <div class="form-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Modificar Cita Médica</h2>
+                            </div>
+                            <div class="card-content">
+                                <form id="edit-appointment-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="edit-patient-name">Nombre del paciente</label>
+                                            <input type="text" id="edit-patient-name" placeholder="Nombre completo">
+                                            <span class="error-message" id="edit-patient-name-error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="edit-patient-rut">RUT del paciente</label>
+                                            <input type="text" id="edit-patient-rut" placeholder="12.345.678-9" maxlength="12">
+                                            <span class="error-message" id="edit-patient-rut-error"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="edit-specialty">Especialidad</label>
+                                            <select id="edit-specialty">
+                                                <option value="">Selecciona una especialidad</option>
+                                                <option value="Medicina General">Medicina General</option>
+                                                <option value="Pediatría">Pediatría</option>
+                                                <option value="Dermatología">Dermatología</option>
+                                                <option value="Odontología">Odontología</option>
+                                            </select>
+                                            <span class="error-message" id="edit-specialty-error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="edit-doctor">Médico</label>
+                                            <select id="edit-doctor">
+                                                <option value="">Selecciona un médico</option>
+                                            </select>
+                                            <span class="error-message" id="edit-doctor-error"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="edit-date">Fecha</label>
+                                            <input type="date" id="edit-date">
+                                            <span class="error-message" id="edit-date-error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="edit-time">Hora</label>
+                                            <select id="edit-time">
+                                                <option value="">Selecciona una hora</option>
+                                                <option value="08:00">08:00</option>
+                                                <option value="08:30">08:30</option>
+                                                <option value="09:00">09:00</option>
+                                                <option value="09:30">09:30</option>
+                                                <option value="10:00">10:00</option>
+                                                <option value="10:30">10:30</option>
+                                                <option value="11:00">11:00</option>
+                                                <option value="11:30">11:30</option>
+                                                <option value="14:00">14:00</option>
+                                                <option value="14:30">14:30</option>
+                                                <option value="15:00">15:00</option>
+                                                <option value="15:30">15:30</option>
+                                                <option value="16:00">16:00</option>
+                                                <option value="16:30">16:30</option>
+                                                <option value="17:00">17:00</option>
+                                                <option value="17:30">17:30</option>
+                                            </select>
+                                            <span class="error-message" id="edit-time-error"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="button" id="cancel-edit" class="btn btn-outline">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmación -->
+        <div id="confirmation-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Confirmar Acción</h3>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-message">¿Estás seguro de que deseas realizar esta acción?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal-cancel" class="btn btn-outline">Cancelar</button>
+                    <button id="modal-confirm" class="btn btn-destructive">Confirmar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
